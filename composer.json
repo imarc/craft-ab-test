@@ -1,0 +1,38 @@
+{
+  "name": "imarc/craft-ab-test",
+  "description": "Allows a user to set up an A/B test in Craft, track impressions and clicks with GA-4, and serve different versions. The serving is done in the front end, so front end caching will not interfere with the test.",
+  "type": "craft-plugin",
+  "license": "mit",
+  "support": {
+    "email": "info@imarc.com"
+  },
+  "require": {
+    "php": ">=8.0.2",
+    "craftcms/cms": "^4.5.0"
+  },
+  "require-dev": {
+    "craftcms/phpstan": "dev-main"
+  },
+  "autoload": {
+    "psr-4": {
+      "imarc\\abtest\\": "src/"
+    }
+  },
+  "extra": {
+    "handle": "ab-test",
+    "name": "AB Test",
+    "developer": "Linnea Hartsuyker",
+    "documentationUrl": "",
+    "class": "imarc\\abtest\\ABTest"
+  },
+  "config": {
+    "sort-packages": true,
+    "platform": {
+      "php": "8.0.2"
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
+  }
+}

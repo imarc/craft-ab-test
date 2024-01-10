@@ -1,0 +1,15 @@
+{% extends '_layouts/elementindex' %}
+{% set title = "Tests"|t('abtest')  %}
+{% set elementType = 'imarc\\abtest\\elements\\ABTest' %}
+{% set canHaveDrafts = false %}
+{% set showSiteMenu = false %}
+{% block actionButton %}
+ <div id="extra-headers">
+    <div class="buttons right">
+      <a href="{{ url('ab-test/tests/new') }}" class="btn submit add icon">
+       {{ "New Test"|t('abtest')}}
+      </a>
+    </div>
+  </div>
+{% endblock %}
+

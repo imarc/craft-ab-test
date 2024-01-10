@@ -1,0 +1,11 @@
+
+{% import '_includes/forms' as forms %}
+{% set title = "A/B Testing Settings" %}
+
+  {{ forms.textField({
+    label: 'Google Analytics ID',
+    name: 'googleAnalyticsId',
+    value: settings.googleAnalyticsId
+  })}}
+
+

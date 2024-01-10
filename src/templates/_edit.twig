@@ -1,0 +1,148 @@
+
+{% extends '_layouts/cp' %}
+{% set title = test.isNew() ?  ('New Test'|t('ab-test')) : ('Edit Test'|t('ab-test')) %}
+{% set fullPageForm = true %}
+
+
+{% import "_includes/forms" as forms %}
+
+
+{% block content %}
+    {{ actionInput('ab-test/a-b-tests/save') }}
+    {{ hiddenInput('testId', test.id) }}
+
+    {{ forms.textField({
+        first: true,
+        label: "Name"|t('app'),
+        id: 'name',
+        name: 'name',
+        value: test.name,
+        errors: test.getErrors('name'),
+        autofocus: true,
+        required: true
+    }) }}
+
+    {{ forms.textField({
+        first: true,
+        label: "Handle"|t('app'),
+        instructions: "Will be used to refer to the test in your site's front end and in GA4's Custom Dimension"|t('app'),
+        id: 'handle',
+        name: 'handle',
+        value: test.handle,
+        errors: test.getErrors('handle'),
+        autofocus: true,
+        required: true
+    }) }}
+
+    {{ forms.lightswitchField({
+        first: true,
+        label: "Enabled?"|t('app'),
+        id: 'enabled',
+        name: 'enabled',
+        on: test.enabled,
+        errors: test.getErrors('enabled'),
+        autofocus: true,
+        required: true
+    }) }}
+
+    {{ forms.textField({
+      first: true,
+      label: "Targeted Element Id"|t('app'),
+      instructions: "The HTML ID of the element that will be replaced by the test. If two tests target the same page and the same element ID, results will be unpredictable.",
+      id: 'targetedElementId',
+      name: 'targetedElementId',
+      value: test.targetedElementId,
+      errors: test.getErrors('targetedElementId'),
+      autofocus: true,
+      required: true
+    })}}
+
+    {{ forms.editableTableField({
+        label: "Targeted URLs",
+        instructions: "Enter single urls or wild cards using *",
+        name: 'targetedUrls',
+        id: 'targetedUrls',
+        cols: {
+            url: {
+              type: 'singleline',
+              heading: 'URLs'|t('app'),
+              placeholder: siteUrl('page'),
+              code: true,
+              required: true
+            }
+        },
+        rows: test.targetedUrls,
+        addRowLabel: "Add a URL"|t('app'),
+        allowAdd: true,
+        allowDelete: true,
+        allowReorder: false,
+        first: true,
+        required: true,
+        errors: test.getErrors('targetedUrls'),
+        minRows: 1
+    }) }}
+
+    {{ forms.editableTableField({
+        label: "Options"|t('app'),
+        instructions: "Define different options for the test."|t('app'),
+        id: 'options',
+        name: 'options',
+        cols: {
+            name: {
+                type: 'singleline',
+                heading: "Name"|t('app'),
+                info: "Sent to GA4" |t('app'),
+                required:true
+            },
+            handle: {
+                type: 'singleline',
+                heading: "Handle"|t('app'),
+                info: "Used in URL parameter to trigger test"|t('app'),
+            },
+            innerHTML: {
+              type: 'textual',
+              heading: "Inner HTML"|t('app'),
+              code: true,
+              info: "HTML that will replace what is in Element ID chosen"|t('app')
+            },
+            weight: {
+                type: 'number',
+                heading: "Weight"|t('app'),
+                info: "Must add up to 100%"|t('app'),
+                thin: true
+            },
+        },
+        rows: options | length ? options : [{name:{value:'Default',readonly:true},handle:'default',weight:100}],
+        addRowLabel: 'Add Option',
+        minRows:1,
+        allowAdd: true,
+        allowDelete: true,
+        allowReorder: false,
+        errors: test.getErrors('options')
+    }) }}
+
+    {{ forms.dateTimeField({
+        label: "Starts at"|t('optimum'),
+        instructions:'Optional. Leave empty to start immediately',
+        id: 'startAt',
+        name: 'startAt',
+        value: test.startAt,
+        errors: test.getErrors('startAt')
+    }) }}
+
+    {{ forms.dateTimeField({
+        label: "Ends at"|t('optimum'),
+        instructions: test.isNew ?  'Optional. Leave empty to run indefinitely.' : '',
+        id: 'endAt',
+        name: 'endAt',
+        value: test.endAt,
+        errors: test.getErrors('endAt')
+    }) }}
+{% endblock %}
+
+
+
+{% if not test.slug %}
+    {% js "new Craft.HandleGenerator('#name', '#handle');" %}
+{% endif %}
+

@@ -25,12 +25,12 @@ class ABTest extends Element
     public ?string $endAt = null;
     public bool $enabled = true;
     public ?array $targetedUrls = null;
-    public ?string $targetedElementId = null;
+    public ?string $targetedSelector = null;
 
     public function rules(): array
     {
         return [
-            [['name', 'handle', 'targetedUrls', 'targetedElementId'], 'required'],
+            [['name', 'handle', 'targetedUrls', 'targetedSelector'], 'required'],
             [['handle'],
                 'unique',
                 'targetClass' => TestRecord::class,
@@ -49,8 +49,7 @@ class ABTest extends Element
                     }
                 }
             ],
-            [['handle'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'],
-            [['targetedElementId'], 'match', 'pattern' => '/^[a-zA-Z][\w:.\-]*$/']
+            [['handle'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/']
         ];
     }
 
@@ -175,7 +174,7 @@ class ABTest extends Element
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
             'targetedUrls' => json_encode($this->targetedUrls),
-            'targetedElementId' => $this->targetedElementId
+            'targetedSelector' => $this->targetedSelector
         ];
     }
 
@@ -189,7 +188,7 @@ class ABTest extends Element
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
             'targetedUrls' => json_encode($this->targetedUrls),
-            'targetedElementId' => $this->targetedElementId
+            'targetedSelector' => $this->targetedSelector
         ];
     }
 

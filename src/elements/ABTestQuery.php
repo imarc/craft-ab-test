@@ -21,7 +21,7 @@ class ABTestQuery extends ElementQuery
             'abtest_tests.endAt',
             'abtest_tests.enabled',
             'abtest_tests.targetedUrls',
-            'abtest_tests.targetedElementId'
+            'abtest_tests.targetedSelector'
         ]);
 
         return parent::beforePrepare();

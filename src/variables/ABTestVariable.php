@@ -39,13 +39,12 @@ class ABTestVariable
 
         $testString =  json_encode($returnTests);
 
-        $distUrl = Craft::$app->assetManager->getPublishedUrl('@imarc/abtest/web/assets/dist/tests.js');
+        //$distUrl = Craft::$app->assetManager->getPublishedUrl('@imarc/abtest/web/assets/dist/tests.js');
 
         $outputScript = <<<EOT
             <script>
                 const tests = {$testString}
             </script>
-            <script src="{$distUrl}"></script>
             EOT;
 
         return TemplateHelper::raw($outputScript);

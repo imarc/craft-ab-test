@@ -47,12 +47,12 @@
 
     {{ forms.textField({
       first: true,
-      label: "Targeted Element Id"|t('app'),
-      instructions: "The HTML ID of the element that will be replaced by the test. If two tests target the same page and the same element ID, results will be unpredictable.",
-      id: 'targetedElementId',
-      name: 'targetedElementId',
-      value: test.targetedElementId,
-      errors: test.getErrors('targetedElementId'),
+      label: "Targeted Element Selector"|t('app'),
+      instructions: "The selector of the element that will be replaced by the test. Try to choose a unique selector on the page. If more than one exists, only the first will be targeted. If two tests target the same page and the same selector, results will be unpredictable.",
+      id: 'targetedSelector',
+      name: 'targetedSelector',
+      value: test.targetedSelector,
+      errors: test.getErrors('targetedSelector'),
       autofocus: true,
       required: true
     })}}
@@ -87,6 +87,7 @@
         instructions: "Define different options for the test."|t('app'),
         id: 'options',
         name: 'options',
+        require: true,
         cols: {
             name: {
                 type: 'singleline',

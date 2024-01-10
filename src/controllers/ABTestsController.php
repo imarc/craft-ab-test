@@ -20,7 +20,7 @@ class ABTestsController extends Controller
     protected array $params = [
         'name' => 'string',
         'handle' => 'string',
-        'targetedElementId' => 'string',
+        'targetedSelector' => 'string',
         'targetedUrls' => 'string',
         'startAt' => 'datetime',
         'endAt' => 'datetime',
@@ -113,6 +113,8 @@ class ABTestsController extends Controller
 
 
         }
+
+        //return json_encode($this->test->getErrors());
         $this->setSuccessFlash(Craft::t('ab-test', 'Experiment saved.'));
 
         $this->redirect('ab-test');
@@ -170,11 +172,6 @@ class ABTestsController extends Controller
                     $errors[] = "Weight must be between 0 and 100 on options {$key}";
                 }
 
-                if ($option->innerHTML === null || empty($option->innerHTML)) {
-                    $errors[] = "Inner HTML must be set for options {$key}";
-                }
-
-
                 if (!Craft::$app->elements->saveElement($option)) {
                     $errors[] = "Option {$key} failed to save";
                 }
@@ -189,13 +186,12 @@ class ABTestsController extends Controller
             $errors[] = "Total weight of all options must add up to 100";
         }
 
+        if ($newIds && count($newIds) > 0) {
+            $newIds = implode(",", $newIds);
 
-        $newIds = implode(",", $newIds);
-
-        OptionRecord::deleteAll("testId={$this->test->id} AND id NOT IN ({$newIds})");
-
-
-
+            OptionRecord::deleteAll("testId={$this->test->id} AND id NOT IN ({$newIds})");
+        }
+        
         return $errors;
 
     }

@@ -53,6 +53,11 @@ class ABTest extends Plugin
             $this->controllerNamespace = 'imarc\\abtest\\controllers';
         } elseif (Craft::$app->request->isConsoleRequest) {
             $this->controllerNamespace = 'imarc\\abtest\\controllers\\console';
+        } else {
+            $view = Craft::$app->getView();
+            
+            $distUrl = Craft::$app->assetManager->getPublishedUrl('@imarc/abtest/web/assets/dist/tests.js');
+            $view->registerJsFile($distUrl, array_merge(['defer' => true]));
         }
     }
 

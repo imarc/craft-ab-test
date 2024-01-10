@@ -22,7 +22,7 @@ class Option extends Element
     public function rules(): array
     {
         return [
-            [['name', 'handle', 'weight', 'innerHTML'], 'required'],
+            [['name', 'handle', 'weight'], 'required'],
             [['handle'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/']
         ];
     }
@@ -56,11 +56,11 @@ class Option extends Element
 
     private function _getUpdateData(): array
     {
-        if ($this->handle === 'default') {
-            return [
-                'weight' => $this->weight
-            ];
-        }
+        // if ($this->handle === 'default') {
+        //     return [
+        //         'weight' => $this->weight
+        //     ];
+        // }
 
         return [
             'name' => $this->name,

@@ -3,6 +3,10 @@ const currentUrl = window.location.href.split('?')[0]
 const urlParams = new URLSearchParams(window.location.search);
 const targetTest = urlParams.get('testname')
 const targetOption = urlParams.get('option')
+const useCookies = urlParams.get('useCookies')
+let shownOption = null
+
+
 console.log(targetTest);
 
 const applicableTests = []
@@ -36,8 +40,8 @@ tests.forEach(test => {
 
 console.log(applicableTests)
 applicableTests.forEach(test => {
-  console.log('#' + test.test.targetedElementId)
-  const abTestHtml = document.querySelector('#' + test.test.targetedElementId)
+  console.log(test.test.targetedSelector)
+  const abTestHtml = document.querySelector(test.test.targetedSelector)
   console.log(abTestHtml)
   let displayed = false
   if (targetTest && targetOption) { // first try to display options in url parameters
@@ -48,15 +52,43 @@ applicableTests.forEach(test => {
       }
     })
   }
-  if (!displayed) { // then display options per weighting
-    const randomNumber = Math.random() * 100
-    let runningWeight = 0
-    test.options.forEach(option => {
-      runningWeight += option.weight
-      if (randomNumber <= runningWeight && !displayed) {
-        abTestHtml.innerHTML = option.innerHTML
-        displayed = true
+  if (!displayed) { // then display options per weighting or cookies
+    
+    abTestHtml.innerHTML = findOption(test.test.handle, test.options, shownOption)
+    
+  }
+})
+console.log(localStorage)
+
+function findOption(testHandle, options) {
+  let shownOption = null
+  if (useCookies !== "false") {
+    shownOption = localStorage.getItem("abtest" + testHandle)
+    console.log(shownOption)
+  }
+  const randomNumber = Math.random() * 100
+  let runningWeight = 0
+  let innerHTML = ""
+  let shown = false
+  if (shownOption) {
+    options.forEach(option => {
+      if (!shown) {
+        if (option.handle == shownOption) {
+          innerHTML = option.innerHTML
+          shown = true
+        }
       }
     })
   }
-})
+  if (!shown) {
+    options.forEach(option => {
+      runningWeight += option.weight
+      if (randomNumber <= runningWeight && !shown) {
+        innerHTML = option.innerHTML
+        localStorage.setItem("abtest" + testHandle, option.handle)
+        shown = true
+      }
+    })
+  }
+  return innerHTML
+}

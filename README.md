@@ -4,7 +4,11 @@ Allows a user to set up an A/B test in Craft, track impressions and clicks with 
 
 ## Requirements
 
-This plugin requires Craft CMS 4.5.0 or later, and PHP 8.0.2 or later.
+This plugin requires:
+
+1. Craft CMS 4.5.0 or later
+2. PHP 8.0.2 or later.
+3. The Google Tag Manager script installed on the page
 
 ## Installation
 
@@ -28,3 +32,19 @@ composer require imarc/craft-ab-test
 # tell Craft to install the plugin
 ./craft plugin/install ab-test
 ```
+
+## Usage
+
+#### 1. Add Code to Templates
+
+Add the following code in the footer script block of any page where you'd like to conduct your tests
+```
+ {{ craft.abtest.abTestScript }}
+```
+
+#### 2. Set up tests in the Control Panel
+
+#### 3. Set up Google Tag Manager Dimensions
+
+## Testing and Verification
+

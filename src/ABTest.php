@@ -66,13 +66,13 @@ class ABTest extends Plugin
         return new Settings;
     }
 
-    protected function settingsHtml(): ?string
-    {
-        return Craft::$app->getView()->renderTemplate(
-            'ab-test/settings',
-            ['settings' => $this->getSettings()]
-        );
-    }
+    // protected function settingsHtml(): ?string
+    // {
+    //     return Craft::$app->getView()->renderTemplate(
+    //         'ab-test/settings',
+    //         ['settings' => $this->getSettings()]
+    //     );
+    // }
 
     private function attachEventHandlers(): void
     {

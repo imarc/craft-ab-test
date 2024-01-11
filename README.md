@@ -64,6 +64,16 @@ You will need to set up the following:
 - **Ends At:** The date and time that the test will end. If left blank, the test will run indefinitely.
 
 #### 3. Set up Google Tag Manager Dimensions
+In order to track which test options are shown and link it to other user behaviors, you will need to set up a custom demension in GA4. To do this:
+1. Login to Google Analytics, and edit the target domain
+2. Go into Admin (in the bottom left as of this writing)
+3. Under Data Display click "Custom Definitions"
+4. Click the button in the top right to "Create custom dimension"
+5. Set the following values:
+   - **Dimension Name:** Can be anything, might want to match the test name
+   - **Scope**: Event
+   - **Event Parameter**: The test handle
+6. Click "Create"
 
 ## Testing and Verification
 This is a powerful tool that can easily break your website, so it's recommended to test your tests. If you add `?testname=[testHandle]&option=[optionHandle]` to a URL where the test should appear, you will see the test and option that matches those handles. This only works if the test is enabled and within the run dates. If you add `?useCookies=false` to a URL where a test should appear, you will see the test randomize per the weighting, but the test you see will not be stored or taken from a cookie, so you should see the tests change as you refresh, depending on the weighting.

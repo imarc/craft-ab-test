@@ -43,19 +43,19 @@ applicableTests.forEach(test => {
   console.log(test.test.targetedSelector)
   const abTestHtml = document.querySelector(test.test.targetedSelector)
   console.log(abTestHtml)
-  let displayed = false
-  if (targetTest && targetOption) { // first try to display options in url parameters
-    test.options.forEach(option => {
-      if (test.test.handle == targetTest && option.handle == targetOption) {
-        abTestHtml.innerHTML = option.innerHTML
-        displayed = true
-      }
-    })
-  }
-  if (!displayed) { // then display options per weighting or cookies
-    
-    abTestHtml.innerHTML = findOption(test.test.handle, test.options, shownOption)
-    
+  if (abTestHtml) {
+    let displayed = false
+    if (targetTest && targetOption) { // first try to display options in url parameters
+      test.options.forEach(option => {
+        if (test.test.handle == targetTest && option.handle == targetOption) {
+          abTestHtml.innerHTML = option.innerHTML
+          displayed = true
+        }
+      })
+    }
+    if (!displayed) { // then display options per weighting or cookies
+      abTestHtml.innerHTML = findOption(test.test.handle, test.options, shownOption)
+    }
   }
 })
 console.log(localStorage)
@@ -85,10 +85,12 @@ function findOption(testHandle, options) {
       runningWeight += option.weight
       if (randomNumber <= runningWeight && !shown) {
         innerHTML = option.innerHTML
-        localStorage.setItem("abtest" + testHandle, option.handle)
+        shownOption = option.handle
+        localStorage.setItem("abtest" + testHandle, shownOption)
         shown = true
       }
     })
   }
+  gtag('event', testHandle, { testHandle : shownOption });
   return innerHTML
 }

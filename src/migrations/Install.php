@@ -50,7 +50,7 @@ class install extends Migration
                     'startAt' => $this->dateTime()->null(),
                     'endAt' => $this->dateTime()->null(),
                     'enabled' => $this->boolean()->defaultValue(false),
-                    'targetedUrls' => $this->json()->notNull(),
+                    'targetedUrls' => $this->longText()->notNull(),
                     'targetedSelector' => $this->string()->notNull(),
                     'dateCreated' => $this->timestamp(),
                     'dateUpdated' => $this->timestamp()

@@ -21,7 +21,7 @@ class ABTestsController extends Controller
         'name' => 'string',
         'handle' => 'string',
         'targetedSelector' => 'string',
-        'targetedUrls' => 'string',
+        'targetedUrls' => 'array',
         'startAt' => 'datetime',
         'endAt' => 'datetime',
         'enabled' => 'boolean'
@@ -84,6 +84,7 @@ class ABTestsController extends Controller
         $this->setParams();
 
         if (!Craft::$app->elements->saveElement($this->test)) {
+            
             $this->setFailFlash(Craft::t('ab-test', 'Could not save test'));
 
             Craft::$app->urlManager->setRouteParams([
@@ -219,7 +220,10 @@ class ABTestsController extends Controller
             }
 
             $this->test->{$key} = $value;
+            
         }
+
+        
     }
 
     private function validateDates(): array

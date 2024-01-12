@@ -166,7 +166,7 @@ class ABTest extends Element
 
     private function _getInsertData(): array
     {
-        if (gettype($this->targetedUrls) == 'string') {
+        if (gettype($this->targetedUrls) == 'array') {
             $this->targetedUrls = json_encode($this->targetedUrls);
         }
         return [
@@ -185,6 +185,9 @@ class ABTest extends Element
 
     private function _getUpdateData(): array
     {
+        if (gettype($this->targetedUrls) == 'array') {
+            $this->targetedUrls = json_encode($this->targetedUrls);
+        }
         return [
             'id' => $this->id,
             'name' => $this->name,

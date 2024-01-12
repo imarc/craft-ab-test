@@ -1,5 +1,8 @@
 
-const currentUrl = window.location.href.split('?')[0]
+let currentUrl = window.location.href.split('?')[0]
+if (currentUrl.slice(-1) == "/") {
+  currentUrl = currentUrl.slice(0, currentUrl.length - 1)
+}
 const urlParams = new URLSearchParams(window.location.search);
 const targetTest = urlParams.get('testname')
 const targetOption = urlParams.get('option')
@@ -7,7 +10,7 @@ const useCookies = urlParams.get('useCookies')
 let shownOption = null
 
 const applicableTests = []
-if (typeof tests != 'undefined') {
+if (typeof tests !== 'undefined') {
   tests.forEach(test => {
     const targetedUrls = JSON.parse(test.test.targetedUrls)
     let urlFound = false

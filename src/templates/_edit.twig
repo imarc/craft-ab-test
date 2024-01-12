@@ -57,6 +57,8 @@
       required: true
     })}}
 
+    {# Clear cache: {{ test.targetedUrls }} #}
+
     {{ forms.editableTableField({
         label: "Targeted URLs",
         instructions: "Enter single urls or wild cards using *",
@@ -71,7 +73,7 @@
               required: true
             }
         },
-        rows: test.targetedUrls,
+        rows: test.targetedUrls|json_decode,
         addRowLabel: "Add a URL"|t('app'),
         allowAdd: true,
         allowDelete: true,

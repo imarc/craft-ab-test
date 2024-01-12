@@ -24,7 +24,7 @@ class ABTest extends Element
     public ?string $startAt = null;
     public ?string $endAt = null;
     public bool $enabled = true;
-    public ?array $targetedUrls = null;
+    public $targetedUrls = null;
     public ?string $targetedSelector = null;
 
     public function rules(): array
@@ -173,9 +173,11 @@ class ABTest extends Element
             'enabled' => $this->enabled,
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
-            'targetedUrls' => json_encode($this->targetedUrls),
+            'targetedUrls' => $this->targetedUrls,
             'targetedSelector' => $this->targetedSelector
         ];
+
+        //'targetedUrls' => json_encode($this->targetedUrls),
     }
 
     private function _getUpdateData(): array
@@ -187,9 +189,11 @@ class ABTest extends Element
             'enabled' => $this->enabled,
             'startAt' => $this->startAt,
             'endAt' => $this->endAt,
-            'targetedUrls' => json_encode($this->targetedUrls),
+            'targetedUrls' => $this->targetedUrls,
             'targetedSelector' => $this->targetedSelector
         ];
+
+        //'targetedUrls' => json_encode($this->targetedUrls),
     }
 
 }

@@ -63,6 +63,8 @@ You will need to set up the following:
 - **Starts At:** The date and time that the test should start. If left blank, the test will start immediately.
 - **Ends At:** The date and time that the test will end. If left blank, the test will run indefinitely.
 
+**You may need to clear the Craft caches to see a new test show up.**
+
 #### 3. Set up Google Tag Manager Dimensions
 In order to track which test options are shown and link it to other user behaviors, you will need to set up a custom demension in GA4. To do this:
 1. Login to Google Analytics, and edit the target domain

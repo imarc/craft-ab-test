@@ -40,8 +40,15 @@ if (typeof tests !== 'undefined') {
   })
 }
 
+
 applicableTests.forEach(test => {
-  const abTestHtml = document.querySelector(test.test.targetedSelector)
+  let abTestHtml = null
+  try {
+    abTestHtml = document.querySelector(test.test.targetedSelector)
+  } catch (error) {
+    console.error('A/B Test error: bad selector')
+  }
+  
   if (abTestHtml) {
     let displayed = false
     if (targetTest && targetOption) { // first try to display options in url parameters

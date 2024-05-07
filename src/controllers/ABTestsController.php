@@ -33,7 +33,7 @@ class ABTestsController extends Controller
 
         //return json_encode($test);
 
-        if (!$test) {
+        if ($test == null) {
             return $this->redirect('ab-test');
         }
 
@@ -43,15 +43,16 @@ class ABTestsController extends Controller
             $testRecord = TestRecord::findOne($test->id);
             if ($testRecord) {
                 $options = $testRecord->getOptions()->all();
+                $data = [
+                    'test' => $test,
+                    'options' => $options,
+                ];
+        
+                return $this->renderTemplate('ab-test/_edit', $data, View::TEMPLATE_MODE_CP);
             }
         }
 
-        $data = [
-            'test' => $test,
-            'options' => $options,
-        ];
-
-        return $this->renderTemplate('ab-test/_edit', $data, View::TEMPLATE_MODE_CP);
+        return "Test option can't be found.";
     }
 
     public function actionSave()
@@ -157,15 +158,15 @@ class ABTestsController extends Controller
 
                 $weightTotal += $option->weight;
 
-                if ($option->name === null || empty($option->name)) {
+                if ($option->name == null || empty($option->name)) {
                     $errors[] = "Option {$key} must have a name";
                 }
 
-                if ($option->handle === null || empty($option->name)) {
+                if ($option->handle == null || empty($option->name)) {
                     $errors[] = "Option {$key} must have a handle";
                 }
 
-                if ($option->weight === null || $option->weight <= 0) {
+                if ($option->weight == null || $option->weight <= 0) {
                     $errors[] = "Option {$key} must have weight set";
                 }
 

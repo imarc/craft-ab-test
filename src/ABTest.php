@@ -4,6 +4,7 @@ namespace imarc\abtest;
 
 use Craft;
 use craft\base\Element;
+use craft\base\Model;
 use craft\base\Plugin;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterUrlRulesEvent;
@@ -61,7 +62,7 @@ class ABTest extends Plugin
         }
     }
 
-    protected function createSettingsModel(): ?craft\base\Model
+    protected function createSettingsModel(): ?Model
     {
         return new Settings;
     }

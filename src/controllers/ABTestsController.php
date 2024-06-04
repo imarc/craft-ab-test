@@ -31,28 +31,29 @@ class ABTestsController extends Controller
     {
         $test = $this->getTestForEdit();
 
-        //return json_encode($test);
-
         if ($test == null) {
             return $this->redirect('ab-test');
         }
 
         if ($test->isNew()) {
             $options = [];
+           
         } else {
             $testRecord = TestRecord::findOne($test->id);
             if ($testRecord) {
                 $options = $testRecord->getOptions()->all();
-                $data = [
-                    'test' => $test,
-                    'options' => $options,
-                ];
-        
-                return $this->renderTemplate('ab-test/_edit', $data, View::TEMPLATE_MODE_CP);
+            } else {
+                return "Test option can't be found.";
             }
         }
 
-        return "Test option can't be found.";
+        $data = [
+            'test' => $test,
+            'options' => $options,
+        ];
+        return $this->renderTemplate('ab-test/_edit', $data, View::TEMPLATE_MODE_CP);
+
+        
     }
 
     public function actionSave()

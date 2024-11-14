@@ -1,4 +1,4 @@
-# AB Test
+# Simple AB Test
 
 Allows a user to set up an A/B test in Craft, track impressions and clicks with GA-4, and serve different versions. The serving is done in the front end, so front end caching will not interfere with the test.
 
@@ -6,9 +6,9 @@ Allows a user to set up an A/B test in Craft, track impressions and clicks with 
 
 This plugin requires:
 
-1. Craft CMS 4.5.0 or later
-2. PHP 8.0.2 or later.
-3. The Google Tag Manager script installed on the page
+1. Craft CMS 4.5.0 or later or CraftCMS 5.0 or later.
+2. PHP 8.0.2 or later or PHP 8.2 later
+3. The Google Analytics or some other tracking script installed on the page
 
 ## Installation
 
@@ -46,6 +46,8 @@ Add the following code in the footer script block of any page where you'd like t
 
 Click on the **A/B Testing** item in the left nav. Then click on "New Test".
 
+![Screenshot 2024-11-14 at 14 10 26](https://github.com/user-attachments/assets/d9463ada-2234-4cc3-a660-2df3e9946c3c)
+
 You will need to set up the following:
 - **Name:** The name the test will be refered to in the list of tests. Should be something descriptive like "Buy Now Link"
 
@@ -72,7 +74,7 @@ You will need to set up the following:
 **You may need to clear the Craft caches to see a new test show up.**
 
 #### 3. Track with Google Analytics Dimensions
-There are many ways to track tests with Google Analytics. Here is how to do it using a custom dimension. 
+There are many ways to track tests with Google Analytics or other tracking tools. Here is how to do it using a custom GA4 dimension. 
 
 In order to track which test options are shown and link it to other user behaviors, you will need to set up a custom demension in GA4. To do this:
 1. Login to Google Analytics, and edit the target domain

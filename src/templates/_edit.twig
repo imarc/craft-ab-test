@@ -1,5 +1,7 @@
 
 {% extends '_layouts/cp' %}
+
+{% do view.registerAssetBundle("imarc\\abtest\\assetbundles\\ABTestsAsset") %}
 {% set title = test.isNew() ?  ('New Test'|t('ab-test')) : ('Edit Test'|t('ab-test')) %}
 {% set fullPageForm = true %}
 
